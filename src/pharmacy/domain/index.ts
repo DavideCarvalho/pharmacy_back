@@ -1,0 +1,1 @@
+export { PharmacySchema } from './product';

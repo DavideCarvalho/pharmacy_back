@@ -3,12 +3,12 @@ run.config:
   engine.config:
     runtime: nodejs-8.6
 
-# add a web component and give it a "start" command
+data.db:
+  image: nanobox/mongodb:3.4
+  config:
+    objcheck: true
+    log_verbosity: 'v'
+
 web.main:
   start:
-    node: npm run build
-    node: node dist/main.js
-
-# add a worker component and give it a "start" command
-# worker.main:
-#   start: node worker.js
+    node: npm run build && node dist/main.js
