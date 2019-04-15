@@ -1,0 +1,14 @@
+run.config:
+  engine: nodejs
+  engine.config:
+    runtime: nodejs-8.6
+
+# add a web component and give it a "start" command
+web.main:
+  start:
+    node: npm run build
+    node: node dist/main.js
+
+# add a worker component and give it a "start" command
+# worker.main:
+#   start: node worker.js
