@@ -5,9 +5,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
+    MongooseModule.forRoot(`mongodb://${process.env.DATA_DB_HOST}:27017/pharmacy`, { useNewUrlParser: true }),
     HelloWorldModule,
     PharmacyModule,
-    MongooseModule.forRoot(`${process.env.DATA_MONGODB_HOST}:27017`),
   ],
 })
 export class AppModule {}

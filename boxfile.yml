@@ -4,11 +4,11 @@ run.config:
     runtime: nodejs-8.6
 
 data.db:
-  image: nanobox/mongodb:3.4
+  image: nanobox/mongodb
   config:
     objcheck: true
     log_verbosity: 'v'
 
 web.main:
   start:
-    node: npm run build && node dist/main.js
+    node: node dist/main.js

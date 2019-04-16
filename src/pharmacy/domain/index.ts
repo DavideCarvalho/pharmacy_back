@@ -1,1 +1,1 @@
-export { PharmacySchema } from './pharmacy';
+export { Pharmacy } from './pharmacy';

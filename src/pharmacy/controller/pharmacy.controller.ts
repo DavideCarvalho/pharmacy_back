@@ -2,7 +2,7 @@ import { Body, Controller, Get } from '@nestjs/common';
 import { PharmacyService } from '../service';
 import { PharmacyVO } from '../vo';
 
-@Controller()
+@Controller('pharmacy')
 export class PharmacyController {
   constructor(private readonly pharmacyService: PharmacyService) {}
 
