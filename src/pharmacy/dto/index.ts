@@ -1,2 +1,3 @@
-export { PharmacyDTO } from './PharmacyDTO';
-export { LocationDTO } from './LocationDTO';
+export { PharmacyDTO } from './pharmacy.dto';
+export { LocationDTO } from './location.dto';
+export { ProductDTO } from './product.dto';

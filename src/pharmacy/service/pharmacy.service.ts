@@ -15,6 +15,6 @@ export class PharmacyService {
   async create(createPharmacyDTO: PharmacyVO): Promise<PharmacyVO> {
     const createdPharmacy = new this.pharmacyModel(createPharmacyDTO);
     await createdPharmacy.save();
-    return new PharmacyVO(null, null);
+    return new PharmacyVO(null, null, null);
   }
 }

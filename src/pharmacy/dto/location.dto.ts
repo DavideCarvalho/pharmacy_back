@@ -1,5 +1,5 @@
 export class LocationDTO {
-  constructor(private _latitude: string, private _longitude: string){}
+  constructor(private _latitude: string, private _longitude: string) {}
 
   get latitude(): string {
     return this._latitude;

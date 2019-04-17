@@ -1,2 +1,1 @@
-export { IPharmacyDto } from './IPharmacyDto';
-export { IPharmacy } from './IPharmacy';
+export { IPharmacy } from './pharmacy.interface';
