@@ -1,20 +1,22 @@
 import {Injectable} from '@nestjs/common';
-import {InjectModel} from '@nestjs/mongoose';
-import {Model} from 'mongoose';
+import { plainToClass } from 'class-transformer';
 import {IPharmacy} from '../interface';
+import {PharmacyDTO} from '../dto';
 import {PharmacyVO} from '../vo';
+import {PharmacyRepository} from '../repository';
 
 @Injectable()
 export class PharmacyService {
 
   constructor(
-    @InjectModel('Pharmacy') private readonly pharmacyModel: Model<IPharmacy>,
+    private readonly repository: PharmacyRepository,
   ) {
   }
 
-  async create(createPharmacyDTO: PharmacyVO): Promise<PharmacyVO> {
-    const createdPharmacy = new this.pharmacyModel(createPharmacyDTO);
-    await createdPharmacy.save();
-    return new PharmacyVO(null, null, null);
+  async create(pharmacy: PharmacyVO): Promise<PharmacyDTO> {
+    const savedPharmacy: IPharmacy = await this.repository.save(
+      plainToClass<PharmacyDTO, PharmacyVO>(PharmacyDTO, pharmacy),
+    );
+    return plainToClass<PharmacyDTO, IPharmacy>(PharmacyDTO, savedPharmacy);
   }
 }

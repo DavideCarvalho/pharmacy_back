@@ -1,19 +1,19 @@
 export class LocationVO {
-  constructor(private _latitude: string, private _longitude: string){}
+  constructor(private _latitude: number, private _longitude: number){}
 
-  get latitude(): string {
+  get latitude(): number {
     return this._latitude;
   }
 
-  set latitude(value: string) {
+  set latitude(value: number) {
     this._latitude = value;
   }
 
-  get longitude(): string {
+  get longitude(): number {
     return this._longitude;
   }
 
-  set longitude(value: string) {
+  set longitude(value: number) {
     this._longitude = value;
   }
 }
