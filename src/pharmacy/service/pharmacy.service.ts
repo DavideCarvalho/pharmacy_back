@@ -8,13 +8,13 @@ import {PharmacyVO} from '../vo';
 export class PharmacyService {
 
   constructor(
-    // @InjectModel('Pharmacy') private readonly pharmacyModel: Model<IPharmacy>,
+    @InjectModel('Pharmacy') private readonly pharmacyModel: Model<IPharmacy>,
   ) {
   }
 
   async create(createPharmacyDTO: PharmacyVO): Promise<PharmacyVO> {
-    // const createdPharmacy = new this.pharmacyModel(createPharmacyDTO);
-    // await createdPharmacy.save();
+    const createdPharmacy = new this.pharmacyModel(createPharmacyDTO);
+    await createdPharmacy.save();
     return new PharmacyVO(null, null);
   }
 }

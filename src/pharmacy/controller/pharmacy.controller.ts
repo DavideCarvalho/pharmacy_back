@@ -1,4 +1,4 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import {Body, Controller, Post} from '@nestjs/common';
 import { PharmacyService } from '../service';
 import { PharmacyVO } from '../vo';
 
@@ -6,7 +6,7 @@ import { PharmacyVO } from '../vo';
 export class PharmacyController {
   constructor(private readonly pharmacyService: PharmacyService) {}
 
-  @Get()
+  @Post()
   getHello(@Body() pharmacy: PharmacyVO ): Promise<PharmacyVO> {
     return this.pharmacyService.create(pharmacy);
   }
