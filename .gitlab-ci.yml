@@ -17,6 +17,8 @@ deploy:
     NANOBOX_PASSWORD: carvalhal96
   stage: deploy
   before_script:
+    - apk add --update bash && rm -rf /var/cache/apk/*
+    - apk add --update curl && rm -rf /var/cache/apk/*
     - bash -c "$(curl -fsSL https://s3.amazonaws.com/tools.nanobox.io/bootstrap/ci.sh)"
   script:
     - nanobox remote add tearful-town
