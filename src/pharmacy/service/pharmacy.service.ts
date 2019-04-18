@@ -13,10 +13,8 @@ export class PharmacyService {
   ) {
   }
 
-  async create(pharmacy: PharmacyVO): Promise<PharmacyDTO> {
-    const savedPharmacy: IPharmacy = await this.repository.save(
-      plainToClass<PharmacyDTO, PharmacyVO>(PharmacyDTO, pharmacy),
-    );
+  async create(pharmacy: PharmacyDTO): Promise<PharmacyDTO> {
+    const savedPharmacy: IPharmacy = await this.repository.save(pharmacy);
     return plainToClass<PharmacyDTO, IPharmacy>(PharmacyDTO, savedPharmacy.toJSON({ virtuals: true }), { excludePrefixes: ['_'] });
   }
 

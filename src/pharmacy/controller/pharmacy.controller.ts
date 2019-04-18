@@ -10,7 +10,7 @@ export class PharmacyController {
 
   @Post()
   async createPharmacy(@Body() pharmacy: PharmacyVO): Promise<PharmacyVO> {
-    const savedPharmacy: PharmacyDTO = await this.service.create(pharmacy);
+    const savedPharmacy: PharmacyDTO = await this.service.create(plainToClass<PharmacyDTO, PharmacyVO>(PharmacyDTO, pharmacy));
     return plainToClass<PharmacyVO, PharmacyDTO>(PharmacyVO, savedPharmacy);
   }
 
