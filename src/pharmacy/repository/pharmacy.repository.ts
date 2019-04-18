@@ -15,4 +15,8 @@ export class PharmacyRepository {
   async save(dto: PharmacyDTO): Promise<IPharmacy> {
     return await new this.pharmacyModel(dto).save();
   }
+
+  async find(): Promise<IPharmacy[]> {
+    return await this.pharmacyModel.find();
+  }
 }

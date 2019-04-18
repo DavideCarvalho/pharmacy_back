@@ -1,34 +1,17 @@
 import {LocationVO} from './location.vo';
 import {ProductVO} from './product.vo';
+import {Type} from 'class-transformer';
 
 export class PharmacyVO {
-  constructor(
-    private _name: string,
-    private _location: LocationVO,
-    private _products: ProductVO[],
-  ) {}
+  name: string;
+  @Type(() => LocationVO)
+  location: LocationVO;
+  @Type(() => ProductVO)
+  products: ProductVO[];
 
-  get name(): string {
-    return this._name;
-  }
-
-  set name(value: string) {
-    this._name = value;
-  }
-
-  get location(): LocationVO {
-    return this._location;
-  }
-
-  set location(value: LocationVO) {
-    this._location = value;
-  }
-
-  get products(): ProductVO[] {
-    return this._products;
-  }
-
-  set products(value: ProductVO[]) {
-    this._products = value;
+  constructor(name: string, location: LocationVO, products: ProductVO[]) {
+    this.name = name;
+    this.location = location;
+    this.products = products;
   }
 }
