@@ -22,4 +22,9 @@ export class PharmacyService {
     const allPharmacies: IPharmacy[] = await this.repository.find();
     return plainToClass<PharmacyDTO, IPharmacy[]>(PharmacyDTO, allPharmacies);
   }
+
+  async findById(id: string): Promise<PharmacyDTO> {
+    const pharmacy: IPharmacy = await this.repository.findById(id);
+    return plainToClass<PharmacyDTO, IPharmacy>(PharmacyDTO, pharmacy);
+  }
 }

@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post} from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { PharmacyService } from '../service';
 import { PharmacyVO } from '../vo';
@@ -10,7 +10,9 @@ export class PharmacyController {
 
   @Post()
   async createPharmacy(@Body() pharmacy: PharmacyVO): Promise<PharmacyVO> {
-    const savedPharmacy: PharmacyDTO = await this.service.create(plainToClass<PharmacyDTO, PharmacyVO>(PharmacyDTO, pharmacy));
+    const savedPharmacy: PharmacyDTO = await this.service.create(
+      plainToClass<PharmacyDTO, PharmacyVO>(PharmacyDTO, pharmacy),
+    );
     return plainToClass<PharmacyVO, PharmacyDTO>(PharmacyVO, savedPharmacy);
   }
 
@@ -18,5 +20,11 @@ export class PharmacyController {
   async findAll(): Promise<PharmacyVO[]> {
     const allPharmacies = await this.service.find();
     return plainToClass<PharmacyVO, PharmacyDTO[]>(PharmacyVO, allPharmacies);
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const pharmacy = await this.service.findById(id);
+    return plainToClass<PharmacyVO, PharmacyDTO>(PharmacyVO, pharmacy);
   }
 }

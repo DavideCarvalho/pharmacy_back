@@ -19,4 +19,8 @@ export class PharmacyRepository {
   async find(): Promise<IPharmacy[]> {
     return await this.pharmacyModel.find();
   }
+
+  async findById(id: string): Promise<IPharmacy> {
+    return await this.pharmacyModel.findById(id);
+  }
 }
