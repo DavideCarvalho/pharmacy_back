@@ -1,0 +1,23 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  before_script:
+    - npm install
+  script:
+    - npm run build
+
+deploy:
+  variables:
+    NANOBOX_USERNAME: davi_carvalho96@hotmail.com
+    NANOBOX_PASSWORD: carvalhal96
+  stage: deploy
+  before_script:
+    - bash -c "$(curl -fsSL https://s3.amazonaws.com/tools.nanobox.io/bootstrap/ci.sh)"
+  script:
+    - nanobox remote add tearful-town
+    - nanobox deploy
+  only:
+    - master
