@@ -27,7 +27,7 @@ export class PharmacyRepository {
   async findByGeolocation({ coordinates, product }: SearchDTO): Promise<PaginateResult<IPharmacy>> {
     let query: any = {
       location: {
-        $near: {
+        $nearSphere: {
           $geometry: {
             type: 'Point',
             coordinates,
@@ -35,7 +35,7 @@ export class PharmacyRepository {
         },
       },
     };
-    if (product) { query = {...query, 'products._id': new Types.ObjectId(product) }; }
+    if (product) { query = {...query, 'products.name': new RegExp(product, 'i') }; }
     return await this.pharmacyModel.paginate(query);
   }
 }

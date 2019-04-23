@@ -31,7 +31,7 @@ export class PharmacyController {
 
   @Get('nearest')
   async getNearest(@Headers('coordinates') coordinates: string,
-                   @Headers('product') product: number,
+                   @Headers('product') product: string,
                    @Headers('limit') limit: number = 10,
                    @Headers('offset') offset: number = 0): Promise<PaginateResult<PharmacyVO>> {
     const nearestPharmacies: PaginateResult<PharmacyDTO> = await this.service.findByGeolocation(
