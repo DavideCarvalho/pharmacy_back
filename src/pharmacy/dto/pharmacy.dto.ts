@@ -1,20 +1,15 @@
 import { LocationDTO } from './location.dto';
 import {ProductDTO} from './product.dto';
-import {Expose, Type} from 'class-transformer';
+import {Expose, Transform, Type} from 'class-transformer';
 
 export class PharmacyDTO {
-
-  private name: string;
+  @Expose({ name: '_id' })
+  @Transform((objectId) => objectId.toString(), { toClassOnly: true })
+  id: string;
+  name: string;
   @Type(() => LocationDTO)
-  private location: LocationDTO;
+  location: LocationDTO;
   @Type(() => ProductDTO)
-  private products: ProductDTO[];
-  private deleted: boolean = false;
-
-  constructor(name: string, location: LocationDTO, products: ProductDTO[], deleted: boolean = false) {
-    this.name = name;
-    this.location = location;
-    this.products = products;
-    this.deleted = deleted;
-  }
+  products: ProductDTO[];
+  deleted: boolean = false;
 }

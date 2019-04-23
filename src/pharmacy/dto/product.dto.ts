@@ -1,13 +1,11 @@
-export class ProductDTO {
-  private name: string;
-  private value: number;
-  private descount: number;
-  private deleted: boolean = false;
+import { Expose, Transform } from 'class-transformer';
 
-  constructor(name: string, value: number, descount: number, deleted: boolean = false) {
-    this.name = name;
-    this.value = value;
-    this.descount = descount;
-    this.deleted = deleted;
-  }
+export class ProductDTO {
+  @Expose({ name: '_id' })
+  @Transform((objectId) => objectId.toString(), { toClassOnly: true })
+  id: string;
+  name: string;
+  value: number;
+  descount: number;
+  deleted: boolean = false;
 }

@@ -1,6 +1,8 @@
 import * as mongoose from 'mongoose';
+import * as mongooseLeanVirtuals from 'mongoose-lean-virtuals';
+import * as mongoosePaginate from 'mongoose-paginate';
 import { Location } from './location';
-import { Product } from './products';
+import { Product } from './product';
 
 export const Pharmacy = new mongoose.Schema({
   name: {
@@ -14,3 +16,7 @@ export const Pharmacy = new mongoose.Schema({
   location: Location,
   products: [Product],
 });
+
+Pharmacy.plugin(mongoosePaginate);
+Pharmacy.plugin(mongooseLeanVirtuals);
+Pharmacy.index({ location: '2dsphere' });

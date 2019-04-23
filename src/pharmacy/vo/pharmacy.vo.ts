@@ -4,6 +4,7 @@ import {Type} from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
 
 export class PharmacyVO {
+  id: string;
   @IsNotEmpty()
   name: string;
   @Type(() => LocationVO)
@@ -11,10 +12,4 @@ export class PharmacyVO {
   location: LocationVO;
   @Type(() => ProductVO)
   products: ProductVO[];
-
-  constructor(name: string, location: LocationVO, products: ProductVO[]) {
-    this.name = name;
-    this.location = location;
-    this.products = products;
-  }
 }
