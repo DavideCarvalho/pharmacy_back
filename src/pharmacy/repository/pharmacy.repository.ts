@@ -2,7 +2,7 @@ import {InjectModel} from '@nestjs/mongoose';
 import {Injectable} from '@nestjs/common';
 import {PaginateModel, PaginateResult, Types} from 'mongoose';
 import {IPharmacy} from '../interface';
-import {PharmacyDTO, SearchDTO} from '../dto';
+import {PharmacyDTO, ProductDTO, SearchDTO} from '../dto';
 
 @Injectable()
 export class PharmacyRepository {
@@ -16,15 +16,15 @@ export class PharmacyRepository {
     return await new this.pharmacyModel(dto).save();
   }
 
-  async find(): Promise<IPharmacy[]> {
-    return await this.pharmacyModel.find().lean({ virtuals: true } as any);
+  async find(limit: number, offset: number): Promise<PaginateResult<IPharmacy>> {
+    return await this.pharmacyModel.paginate(null, { limit, offset });
   }
 
   async findById(id: string): Promise<IPharmacy> {
     return await this.pharmacyModel.findById(id);
   }
 
-  async findByGeolocation({ coordinates, product }: SearchDTO): Promise<PaginateResult<IPharmacy>> {
+  async findByGeolocation({ coordinates, product }: SearchDTO, limit: number, offset: number): Promise<PaginateResult<IPharmacy>> {
     let query: any = {
       location: {
         $nearSphere: {
@@ -36,6 +36,36 @@ export class PharmacyRepository {
       },
     };
     if (product) { query = {...query, 'products.name': new RegExp(product, 'i') }; }
-    return await this.pharmacyModel.paginate(query);
+    return await this.pharmacyModel.paginate(query, { limit, offset });
+  }
+
+  async overwriteProducts(id: string, products: ProductDTO[]): Promise<void> {
+    this.pharmacyModel.findByIdAndUpdate(id, {
+      $set: {
+        products,
+      },
+    });
+  }
+
+  async addNewProduct(id: string, product: ProductDTO): Promise<void> {
+    this.pharmacyModel.findByIdAndUpdate(id, {
+      $push: {
+        products: product,
+      },
+    });
+  }
+
+  async updateProduct(id: string, productId: string, product: ProductDTO): Promise<void> {
+    this.pharmacyModel.findOneAndUpdate(
+      {
+        '_id': new Types.ObjectId(id),
+        'product._id': new Types.ObjectId(productId),
+      },
+      {
+        $set: {
+          'products.$': product,
+        },
+      },
+    );
   }
 }
