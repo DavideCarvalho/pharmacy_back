@@ -1,1 +1,1 @@
-export { PharmacyController } from './pharmacy.controller';
+export {PharmacyController} from './pharmacy.controller';

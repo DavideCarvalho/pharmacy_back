@@ -1,13 +1,13 @@
-import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Pharmacy } from './domain';
-import { PharmacyService } from './service';
-import { PharmacyController } from './controller';
-import { PharmacyRepository } from './repository';
+import {Module} from '@nestjs/common';
+import {MongooseModule} from '@nestjs/mongoose';
+import {Pharmacy} from './domain';
+import {PharmacyService} from './service';
+import {PharmacyController} from './controller';
+import {PharmacyRepository} from './repository';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'Pharmacy', schema: Pharmacy }]),
+    MongooseModule.forFeature([{name: 'Pharmacy', schema: Pharmacy}]),
   ],
   controllers: [PharmacyController],
   providers: [
@@ -15,4 +15,5 @@ import { PharmacyRepository } from './repository';
     PharmacyRepository,
   ],
 })
-export class PharmacyModule {}
+export class PharmacyModule {
+}

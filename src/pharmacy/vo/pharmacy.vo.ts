@@ -1,7 +1,7 @@
 import {LocationVO} from './location.vo';
 import {ProductVO} from './product.vo';
 import {Type} from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
+import {IsNotEmpty} from 'class-validator';
 
 export class PharmacyVO {
   id: string;

@@ -1,1 +1,1 @@
-export { PharmacyRepository } from './pharmacy.repository';
+export {PharmacyRepository} from './pharmacy.repository';

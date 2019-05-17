@@ -1,1 +1,1 @@
-export { HelloWorldModule } from './hello-world.module';
+export {HelloWorldModule} from './hello-world.module';

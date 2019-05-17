@@ -1,1 +1,1 @@
-export { PharmacyModule } from './pharmacy.module';
+export {PharmacyModule} from './pharmacy.module';

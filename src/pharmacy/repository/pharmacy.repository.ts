@@ -17,14 +17,14 @@ export class PharmacyRepository {
   }
 
   async find(limit: number, offset: number): Promise<PaginateResult<IPharmacy>> {
-    return await this.pharmacyModel.paginate(null, { limit, offset });
+    return await this.pharmacyModel.paginate(null, {limit, offset});
   }
 
   async findById(id: string): Promise<IPharmacy> {
     return await this.pharmacyModel.findById(id);
   }
 
-  async findByGeolocation({ coordinates, product }: SearchDTO, limit: number, offset: number): Promise<PaginateResult<IPharmacy>> {
+  async findByGeolocation({coordinates, product}: SearchDTO, limit: number, offset: number): Promise<PaginateResult<IPharmacy>> {
     let query: any = {
       location: {
         $nearSphere: {
@@ -35,8 +35,10 @@ export class PharmacyRepository {
         },
       },
     };
-    if (product) { query = {...query, 'products.name': new RegExp(product, 'i') }; }
-    return await this.pharmacyModel.paginate(query, { limit, offset });
+    if (product) {
+      query = {...query, 'products.name': new RegExp(product, 'i')};
+    }
+    return await this.pharmacyModel.paginate(query, {limit, offset});
   }
 
   async overwriteProducts(id: string, products: ProductDTO[]): Promise<void> {

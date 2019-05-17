@@ -1,1 +1,1 @@
-export { PharmacyService } from './pharmacy.service';
+export {PharmacyService} from './pharmacy.service';

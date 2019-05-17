@@ -1,13 +1,14 @@
-import {Body, Controller, Get, Headers, HttpCode, Param, Post, Query} from '@nestjs/common';
+import {Body, Controller, Get, Headers, HttpCode, Param, Post, Query, ValidationPipe} from '@nestjs/common';
 import {plainToClass} from 'class-transformer';
+import {PaginateResult} from 'mongoose';
 import {PharmacyService} from '../service';
 import {PharmacyVO, ProductVO, SearchVO} from '../vo';
 import {PharmacyDTO, ProductDTO, SearchDTO} from '../dto';
-import {PaginateResult} from 'mongoose';
 
 @Controller('pharmacy')
 export class PharmacyController {
-  constructor(private readonly service: PharmacyService) {}
+  constructor(private readonly service: PharmacyService) {
+  }
 
   @Post()
   @HttpCode(200)
@@ -23,8 +24,8 @@ export class PharmacyController {
   async findAll(@Query('limit') limit: number = 10,
                 @Query('offset') offset: number = 0): Promise<PaginateResult<PharmacyVO>> {
     const allPharmacies: PaginateResult<PharmacyDTO> = await this.service.find(limit, offset);
-    const pharmaciesVO: PharmacyVO[] = plainToClass<PharmacyVO, PharmacyDTO[]>(PharmacyVO, allPharmacies.docs, { excludePrefixes: ['_'] });
-    return { ...allPharmacies, docs: pharmaciesVO };
+    const pharmaciesVO: PharmacyVO[] = plainToClass<PharmacyVO, PharmacyDTO[]>(PharmacyVO, allPharmacies.docs, {excludePrefixes: ['_']});
+    return {...allPharmacies, docs: pharmaciesVO};
   }
 
   @Get(':id')
@@ -43,19 +44,19 @@ export class PharmacyController {
                    @Query('limit') limit: number = 10,
                    @Query('offset') offset: number = 0): Promise<PaginateResult<PharmacyVO>> {
     const nearestPharmacies: PaginateResult<PharmacyDTO> = await this.service.findByGeolocation(
-      plainToClass<SearchDTO, SearchVO>(SearchDTO, { coordinates: JSON.parse(coordinates), product }),
+      plainToClass<SearchDTO, SearchVO>(SearchDTO, {coordinates: JSON.parse(coordinates), product}),
       limit,
       offset,
     );
-    const pharmaciesVO: PharmacyVO[] = plainToClass<PharmacyVO, PharmacyDTO[]>(PharmacyVO, nearestPharmacies.docs, { excludePrefixes: ['_'] });
-    return { ...nearestPharmacies, docs: pharmaciesVO };
+    const pharmaciesVO: PharmacyVO[] = plainToClass<PharmacyVO, PharmacyDTO[]>(PharmacyVO, nearestPharmacies.docs, {excludePrefixes: ['_']});
+    return {...nearestPharmacies, docs: pharmaciesVO};
   }
 
   @Post(':id/product')
   @HttpCode(200)
   async appendOrOverwriteProducts(@Param('id') id: string,
                                   @Headers('overwrite') overwrite: boolean,
-                                  @Body() products: ProductVO[] | ProductVO): Promise<void> {
+                                  @Body(new ValidationPipe()) products: ProductVO[] | ProductVO): Promise<void> {
     if (overwrite) {
       await this.service.overwriteProducts(
         id,
