@@ -45,6 +45,14 @@ steps:
     Contents: 'package.json'
     TargetFolder: $(System.DefaultWorkingDirectory)
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: $(System.DefaultWorkingDirectory)
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    replaceExistingArchive: true
+
 - task: PublishBuildArtifacts@1
   inputs:
-    TargetPath: $(Build.ArtifactStagingDirectory)
+    TargetPath: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
