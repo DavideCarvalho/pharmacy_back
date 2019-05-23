@@ -7,7 +7,7 @@ import {MongooseModule} from '@nestjs/mongoose';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      `mongodb://${process.env.DATA_DB_HOST}:${process.env.DATA_DB_PORT}/${process.env.DATA_DB_NAME}`,
+      `mongodb://${process.env.APPSETTING_DATA_DB_HOST}:${process.env.APPSETTING_DATA_DB_PORT}/${process.env.APPSETTING_DATA_DB_NAME}`,
       {useNewUrlParser: true},
     ),
     HelloWorldModule,
