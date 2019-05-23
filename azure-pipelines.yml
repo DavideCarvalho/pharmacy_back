@@ -21,6 +21,7 @@ steps:
   displayName: 'npm install and build'
 
 - task: CopyFiles@2
+  displayName: "copying dist to staging dist"
   inputs:
     SourceFolder: $(System.DefaultWorkingDirectory)/dist
     Contents: '**'
@@ -29,6 +30,7 @@ steps:
     OverWrite: true
 
 - task: CopyFiles@2
+  displayName: "copying package json to root staging"
   inputs:
     SourceFolder: $(System.DefaultWorkingDirectory)
     Contents: package.json
@@ -40,9 +42,10 @@ steps:
     Contents: '**'
 
 - task: CopyFiles@2
+  displayName: "copying staging directory to root directory"
   inputs:
     SourceFolder: $(Build.ArtifactStagingDirectory)
-    Contents: 'package.json'
+    Contents: '**'
     TargetFolder: $(System.DefaultWorkingDirectory)
 
 - task: CmdLine@2
