@@ -20,6 +20,10 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
+- task: CmdLine@2
+  inputs:
+    script: 'ls'
+
 - task: CopyFiles@1
   inputs:
     SourceFolder: 'dist'
@@ -39,11 +43,19 @@ steps:
     SourceFolder: $(System.DefaultWorkingDirectory)
     Contents: '**'
 
+- task: CmdLine@2
+  inputs:
+    script: 'ls'
+
 - task: CopyFiles@2
   inputs:
     SourceFolder: $(Build.ArtifactStagingDirectory)
     Contents: 'package.json'
     TargetFolder: $(System.DefaultWorkingDirectory)
+
+- task: CmdLine@2
+  inputs:
+    script: 'ls'
 
 - task: ArchiveFiles@2
   inputs:
