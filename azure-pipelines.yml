@@ -20,32 +20,24 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-- task: CmdLine@2
-  inputs:
-    script: 'ls'
-
-- task: CopyFiles@1
+- task: CopyFiles@2
   inputs:
     SourceFolder: $(System.DefaultWorkingDirectory)/dist
     Contents: '**'
-    TargetFolder: $(Build.ArtifactStagingDirectory)
+    TargetFolder: $(Build.ArtifactStagingDirectory)/dist
     CleanTargetFolder: true
     OverWrite: true
 
 - task: CopyFiles@2
   inputs:
     SourceFolder: $(System.DefaultWorkingDirectory)
-    Contents: 'package.json'
+    Contents: package.json
     TargetFolder: $(Build.ArtifactStagingDirectory)
 
 - task: DeleteFiles@1
   inputs:
     SourceFolder: $(System.DefaultWorkingDirectory)
     Contents: '**'
-
-- task: CmdLine@2
-  inputs:
-    script: 'ls'
 
 - task: CopyFiles@2
   inputs:
