@@ -39,12 +39,8 @@ export class PharmacyController {
 
   @Get(':id')
   @ApiOperation({ title: 'Get one by id', description: 'Get an especific pharmacy by id' })
-  @ApiImplicitQuery({name: 'limit', required: false, description: 'number of elements on response, default to 10'})
-  @ApiImplicitQuery({name: 'offset', required: false, description: 'how many elements to skip, default to 0'})
   @HttpCode(200)
-  async findOne(@Param('id') id: string,
-                @Query('limit') limit: number = 10,
-                @Query('offset') offset: number = 0): Promise<PharmacyVO> {
+  async findOne(@Param('id') id: string): Promise<PharmacyVO> {
     const pharmacy: PharmacyDTO = await this.service.findById(id);
     return plainToClass<PharmacyVO, PharmacyDTO>(PharmacyVO, pharmacy);
   }
