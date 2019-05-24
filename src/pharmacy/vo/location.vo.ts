@@ -1,4 +1,8 @@
+import { ApiModelProperty } from "@nestjs/swagger";
+
 export class LocationVO {
   type = 'Point';
-  coordinates: number[];
+
+  @ApiModelProperty()
+  coordinates: [number, number];
 }
