@@ -4,14 +4,17 @@ import {PaginateResult} from 'mongoose';
 import {PharmacyService} from '../service';
 import {PharmacyVO, ProductVO, SearchVO} from '../vo';
 import {PharmacyDTO, ProductDTO, SearchDTO} from '../dto';
+import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 
+@ApiUseTags('pharmacy')
 @Controller('pharmacy')
 export class PharmacyController {
   constructor(private readonly service: PharmacyService) {
   }
 
   @Post()
-  @HttpCode(200)
+  @ApiResponse({ status: 201 })
+  @HttpCode(201)
   async createPharmacy(@Body() pharmacy: PharmacyVO): Promise<PharmacyVO> {
     const savedPharmacy: PharmacyDTO = await this.service.create(
       plainToClass<PharmacyDTO, PharmacyVO>(PharmacyDTO, pharmacy),
