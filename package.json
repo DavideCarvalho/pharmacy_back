@@ -4,6 +4,7 @@
   "description": "",
   "author": "",
   "license": "MIT",
+  "main": "./dist/main.js",
   "engines": {
     "node": "10.15.2"
   },
