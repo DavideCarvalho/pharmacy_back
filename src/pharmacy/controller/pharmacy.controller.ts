@@ -27,8 +27,8 @@ export class PharmacyController {
   @Get()
   @ApiOperation({ title: 'Get all pharmacies', description: 'Get all pharmacies paginated' })
   @ApiResponse({ status: 200, type: PaginatedPharmacyVO })
-  @ApiImplicitQuery({name: 'limit', required: false})
-  @ApiImplicitQuery({name: 'offset', required: false})
+  @ApiImplicitQuery({name: 'limit', required: false, description: 'number of elements on response, default to 10'})
+  @ApiImplicitQuery({name: 'offset', required: false, description: 'how many elements to skip, default to 0'})
   @HttpCode(200)
   async findAll(@Query('limit') limit: number = 10,
                 @Query('offset') offset: number = 0): Promise<PaginateResult<PharmacyVO>> {
@@ -39,8 +39,8 @@ export class PharmacyController {
 
   @Get(':id')
   @ApiOperation({ title: 'Get one by id', description: 'Get an especific pharmacy by id' })
-  @ApiImplicitQuery({name: 'limit', required: false})
-  @ApiImplicitQuery({name: 'offset', required: false})
+  @ApiImplicitQuery({name: 'limit', required: false, description: 'number of elements on response, default to 10'})
+  @ApiImplicitQuery({name: 'offset', required: false, description: 'how many elements to skip, default to 0'})
   @HttpCode(200)
   async findOne(@Param('id') id: string,
                 @Query('limit') limit: number = 10,
@@ -52,8 +52,8 @@ export class PharmacyController {
   @Get('nearest')
   @ApiOperation({ title: 'Get nearest pharmacies', description: 'Get nearest pharmacies, given the location' })
   @ApiResponse({ status: 200, type: PaginatedPharmacyVO, description: 'Got the nearest pharmacies' })
-  @ApiImplicitQuery({name: 'limit', required: false})
-  @ApiImplicitQuery({name: 'offset', required: false})
+  @ApiImplicitQuery({name: 'limit', required: false, description: 'number of elements on response, default to 10'})
+  @ApiImplicitQuery({name: 'offset', required: false, description: 'how many elements to skip, default to 0'})
   @HttpCode(200)
   async getNearest(@Headers('coordinates') coordinates: string,
                    @Headers('product') product: string,
