@@ -20,39 +20,8 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-- task: CopyFiles@2
-  displayName: "copying dist to staging dist"
-  inputs:
-    SourceFolder: $(System.DefaultWorkingDirectory)/dist
-    Contents: '**'
-    TargetFolder: $(Build.ArtifactStagingDirectory)/dist
-    CleanTargetFolder: true
-    OverWrite: true
-
-- task: CopyFiles@2
-  displayName: "copying package json to root staging"
-  inputs:
-    SourceFolder: $(System.DefaultWorkingDirectory)
-    Contents: package.json
-    TargetFolder: $(Build.ArtifactStagingDirectory)
-
-- task: DeleteFiles@1
-  inputs:
-    SourceFolder: $(System.DefaultWorkingDirectory)
-    Contents: '**'
-
-- task: CopyFiles@2
-  displayName: "copying staging directory to root directory"
-  inputs:
-    SourceFolder: $(Build.ArtifactStagingDirectory)
-    Contents: '**'
-    TargetFolder: $(System.DefaultWorkingDirectory)
-
-- task: CmdLine@2
-  inputs:
-    script: 'ls'
-
 - task: ArchiveFiles@2
+  displayName: "creating zip file"
   inputs:
     rootFolderOrFile: $(System.DefaultWorkingDirectory)
     includeRootFolder: true
