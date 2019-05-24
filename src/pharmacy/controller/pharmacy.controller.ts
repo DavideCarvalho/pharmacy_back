@@ -5,6 +5,7 @@ import {PharmacyService} from '../service';
 import {PharmacyVO, ProductVO, SearchVO} from '../vo';
 import {PharmacyDTO, ProductDTO, SearchDTO} from '../dto';
 import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
+import { PaginatedPharmacyVO } from '../swagger/paginate-result.swagger';
 
 @ApiUseTags('pharmacy')
 @Controller('pharmacy')
@@ -23,6 +24,7 @@ export class PharmacyController {
   }
 
   @Get()
+  @ApiResponse({ status: 200, type: PaginatedPharmacyVO })
   @HttpCode(200)
   async findAll(@Query('limit') limit: number = 10,
                 @Query('offset') offset: number = 0): Promise<PaginateResult<PharmacyVO>> {
