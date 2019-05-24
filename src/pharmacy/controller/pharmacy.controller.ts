@@ -4,7 +4,7 @@ import {PaginateResult} from 'mongoose';
 import {PharmacyService} from '../service';
 import {PharmacyVO, ProductVO, SearchVO} from '../vo';
 import {PharmacyDTO, ProductDTO, SearchDTO} from '../dto';
-import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
+import { ApiUseTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { PaginatedPharmacyVO } from '../swagger/paginate-result.swagger';
 
 @ApiUseTags('pharmacy')
@@ -14,7 +14,8 @@ export class PharmacyController {
   }
 
   @Post()
-  @ApiResponse({ status: 201 })
+  @ApiOperation({ title: 'New Pharmacy', description: 'Add new pharmacy' })
+  @ApiResponse({ status: 201, description: 'Pharmacy has been successfully created' })
   @HttpCode(201)
   async createPharmacy(@Body() pharmacy: PharmacyVO): Promise<PharmacyVO> {
     const savedPharmacy: PharmacyDTO = await this.service.create(
@@ -24,6 +25,7 @@ export class PharmacyController {
   }
 
   @Get()
+  @ApiOperation({ title: 'Get all pharmacies', description: 'Get all pharmacies paginated' })
   @ApiResponse({ status: 200, type: PaginatedPharmacyVO })
   @HttpCode(200)
   async findAll(@Query('limit') limit: number = 10,
@@ -34,6 +36,7 @@ export class PharmacyController {
   }
 
   @Get(':id')
+  @ApiOperation({ title: 'Get one by id', description: 'Get an especific pharmacy by id' })
   @HttpCode(200)
   async findOne(@Param('id') id: string,
                 @Query('limit') limit: number = 10,
@@ -43,6 +46,8 @@ export class PharmacyController {
   }
 
   @Get('nearest')
+  @ApiOperation({ title: 'Get nearest pharmacies', description: 'Get nearest pharmacies, given the location' })
+  @ApiResponse({ status: 200, type: PaginatedPharmacyVO, description: 'Got the nearest pharmacies' })
   @HttpCode(200)
   async getNearest(@Headers('coordinates') coordinates: string,
                    @Headers('product') product: string,
@@ -58,6 +63,10 @@ export class PharmacyController {
   }
 
   @Post(':id/product')
+  @ApiOperation({
+    title: 'Add or append products',
+    description: 'Add product to pharmacy. You can choose to overwrite the actual data for the sent body',
+  })
   @HttpCode(200)
   async appendOrOverwriteProducts(@Param('id') id: string,
                                   @Headers('overwrite') overwrite: boolean,
@@ -75,6 +84,10 @@ export class PharmacyController {
   }
 
   @Post('id/product/:productId')
+  @ApiOperation({
+    title: 'Update product',
+    description: 'Update product by id',
+  })
   @HttpCode(200)
   async updateProduct(@Param('id') id: string,
                       @Param('productId') productId: string,
