@@ -16,7 +16,7 @@
     "serve:debug": "nodemon --config nodemon-debug.json",
     "start": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "cross-env DATA_DB_HOST=127.0.0.1 DATA_DB_PORT=27017 DATA_DB_NAME=pharmacy jest --config ./test/jest-e2e.json",
+    "test": "cross-env APPSETTING_DATA_DB_HOST=127.0.0.1 APPSETTING_DATA_DB_PORT=27017 APPSETTING_DATA_DB_NAME=pharmacy jest --config ./test/jest-e2e.json",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
