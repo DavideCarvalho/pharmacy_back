@@ -1,1 +1,1 @@
-export { OauthController } from './oauth.controller';
+export {OauthController} from './oauth.controller';

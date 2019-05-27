@@ -12,6 +12,6 @@ export class OauthRepository {
   }
 
   async findByEmailAndPassword(): Promise<IUser> {
-    return await this.userModel.findOne({ email: 'email', password: 123 });
+    return await this.userModel.findOne({email: 'email', password: 123});
   }
 }

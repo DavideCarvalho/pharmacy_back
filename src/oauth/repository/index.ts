@@ -1,1 +1,1 @@
-export { OauthRepository } from './oauth.repository';
+export {OauthRepository} from './oauth.repository';

@@ -1,1 +1,1 @@
-export { OauthService } from './oauth.service';
+export {OauthService} from './oauth.service';

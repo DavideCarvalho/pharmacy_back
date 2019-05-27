@@ -1,1 +1,1 @@
-export { OauthModule } from './oauth.module';
+export {OauthModule} from './oauth.module';

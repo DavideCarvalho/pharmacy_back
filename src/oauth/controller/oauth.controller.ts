@@ -1,4 +1,4 @@
-import {Controller, HttpCode, HttpException, HttpStatus, Post} from '@nestjs/common';
+import {Controller, Post} from '@nestjs/common';
 import {OauthService} from '../service';
 
 @Controller('oauth')
@@ -6,7 +6,8 @@ export class OauthController {
 
   constructor(
     private readonly service: OauthService,
-  ){}
+  ) {
+  }
 
   @Post('/token')
   async authenticateUser(): Promise<string> {

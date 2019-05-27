@@ -1,8 +1,8 @@
-import { PharmacyVO } from "../vo";
-import { ApiModelProperty, ApiModelPropertyOptional } from "@nestjs/swagger";
+import {PharmacyVO} from '../vo';
+import {ApiModelProperty, ApiModelPropertyOptional} from '@nestjs/swagger';
 
 export class PaginatedPharmacyVO {
-  @ApiModelProperty({ type: PharmacyVO, isArray: true })
+  @ApiModelProperty({type: PharmacyVO, isArray: true})
   docs: PharmacyVO[];
 
   @ApiModelProperty()
