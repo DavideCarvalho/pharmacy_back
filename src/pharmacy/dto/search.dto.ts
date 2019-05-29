@@ -1,4 +1,4 @@
 export class SearchDTO {
-  coordinates: number[];
+  location: string;
   product: string;
 }

@@ -1,15 +1,19 @@
-import {Injectable} from '@nestjs/common';
+import {HttpService, Injectable} from '@nestjs/common';
 import {deserializeArray, plainToClass} from 'class-transformer';
 import {IPharmacy} from '../interface';
 import {PharmacyDTO, ProductDTO, SearchDTO} from '../dto';
 import {PharmacyRepository} from '../repository';
 import {PaginateResult} from 'mongoose';
+import {GoogleMapsService} from './google-maps.service';
+import {AxiosResponse} from 'axios';
+import {GoogleMapsResponseModel} from '../model';
 
 @Injectable()
 export class PharmacyService {
 
   constructor(
     private readonly repository: PharmacyRepository,
+    private readonly googleMapsService: GoogleMapsService,
   ) {
   }
 
@@ -30,7 +34,13 @@ export class PharmacyService {
   }
 
   async findByGeolocation(search: SearchDTO, limit: number, offset: number): Promise<PaginateResult<PharmacyDTO>> {
-    const nearestPharmacies: PaginateResult<IPharmacy> = await this.repository.findByGeolocation(search, limit, offset);
+    const googleApiResult: AxiosResponse<GoogleMapsResponseModel> = await this.googleMapsService.getGeocoding(search.location);
+    const googleMapResponse: GoogleMapsResponseModel = plainToClass(GoogleMapsResponseModel, googleApiResult.data);
+    const coordinates = [
+      googleMapResponse.results[0].geometry.location.lat,
+      googleMapResponse.results[0].geometry.location.lng,
+    ];
+    const nearestPharmacies: PaginateResult<IPharmacy> = await this.repository.findByGeolocation(search.product, coordinates, limit, offset);
     const pharmaciesDTO: PharmacyDTO[] = deserializeArray<PharmacyDTO>(PharmacyDTO, JSON.stringify(nearestPharmacies.docs));
     return {...nearestPharmacies, docs: pharmaciesDTO};
   }
