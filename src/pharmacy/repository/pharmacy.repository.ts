@@ -3,6 +3,7 @@ import {Injectable} from '@nestjs/common';
 import {PaginateModel, PaginateResult, Types} from 'mongoose';
 import {IPharmacy} from '../interface';
 import {PharmacyDTO, ProductDTO, SearchDTO} from '../dto';
+import {LocationModel} from '../model';
 
 @Injectable()
 export class PharmacyRepository {
@@ -24,7 +25,7 @@ export class PharmacyRepository {
     return await this.pharmacyModel.findById(id);
   }
 
-  async findByGeolocation({coordinates, product}: SearchDTO, limit: number, offset: number): Promise<PaginateResult<IPharmacy>> {
+  async findByGeolocation(product: string, coordinates: number[], limit: number, offset: number): Promise<PaginateResult<IPharmacy>> {
     let query: any = {
       location: {
         $nearSphere: {
@@ -34,10 +35,8 @@ export class PharmacyRepository {
           },
         },
       },
+      'products.name': new RegExp(product, 'i'),
     };
-    if (product) {
-      query = {...query, 'products.name': new RegExp(product, 'i')};
-    }
     return await this.pharmacyModel.paginate(query, {limit, offset});
   }
 

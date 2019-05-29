@@ -1,4 +1,4 @@
 export class SearchVO {
-  coordinates: number[];
+  location: string;
   product: string;
 }

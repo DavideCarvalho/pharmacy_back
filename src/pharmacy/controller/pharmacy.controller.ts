@@ -50,15 +50,17 @@ export class PharmacyController {
   @Get('nearest')
   @ApiOperation({title: 'Get nearest pharmacies', description: 'Get nearest pharmacies, given the location'})
   @ApiResponse({status: 200, type: PaginatedPharmacyVO, description: 'Got the nearest pharmacies'})
+  @ApiImplicitQuery({name: 'product', required: true, description: 'product name'})
+  @ApiImplicitQuery({name: 'location', required: true, description: 'identifier of location for google api'})
   @ApiImplicitQuery({name: 'limit', required: false, description: 'number of elements on response, default to 10'})
   @ApiImplicitQuery({name: 'offset', required: false, description: 'how many elements to skip, default to 0'})
   @HttpCode(200)
-  async getNearest(@Headers('coordinates') coordinates: number[],
-                   @Headers('product') product: string,
+  async getNearest(@Query('product') product: string,
+                   @Query('location') location: string,
                    @Query('limit', ToNumberPipe) limit: number = 10,
                    @Query('offset', ToNumberPipe) offset: number = 0): Promise<PaginateResult<PharmacyVO>> {
     const nearestPharmacies: PaginateResult<PharmacyDTO> = await this.service.findByGeolocation(
-      plainToClass<SearchDTO, SearchVO>(SearchDTO, {coordinates, product}),
+      plainToClass<SearchDTO, SearchVO>(SearchDTO, {location, product}),
       limit,
       offset,
     );
