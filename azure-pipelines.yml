@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+- develop
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -26,9 +26,9 @@ steps:
     rootFolderOrFile: $(System.DefaultWorkingDirectory)
     includeRootFolder: true
     archiveType: 'zip'
-    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    archiveFile: $(Build.ArtifactStagingDirectory)/develop/$(Build.BuildId).zip
     replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   inputs:
-    TargetPath: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    TargetPath: $(Build.ArtifactStagingDirectory)/develop/$(Build.BuildId).zip
