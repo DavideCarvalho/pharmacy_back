@@ -19,4 +19,4 @@ export const Pharmacy = new mongoose.Schema({
 
 Pharmacy.plugin(mongoosePaginate);
 Pharmacy.plugin(mongooseLeanVirtuals);
-Pharmacy.index({location: '2dsphere', name: 'text'});
+Pharmacy.index({location: '2dsphere'});

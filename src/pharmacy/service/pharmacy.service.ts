@@ -1,4 +1,4 @@
-import {HttpService, Injectable} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {deserializeArray, plainToClass} from 'class-transformer';
 import {IPharmacy} from '../interface';
 import {PharmacyDTO, ProductDTO, SearchDTO} from '../dto';

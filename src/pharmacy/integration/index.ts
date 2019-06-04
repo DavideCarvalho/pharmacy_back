@@ -1,1 +1,1 @@
-export { GoogleMapsIntegration } from './google-maps.integration';
+export {GoogleMapsIntegration} from './google-maps.integration';

@@ -8,7 +8,8 @@ export class GoogleMapsService {
 
   constructor(
     private readonly integration: GoogleMapsIntegration,
-  ) {}
+  ) {
+  }
 
   async getGeocoding(location: string): Promise<AxiosResponse<GoogleMapsResponseModel>> {
     return await this.integration.getGeocoding(location);

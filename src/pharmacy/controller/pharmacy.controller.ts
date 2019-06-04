@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Headers, HttpCode, Param, Post, Query, ValidationPipe} from '@nestjs/common';
+import {Body, Controller, Get, HttpCode, Param, Post, Query, ValidationPipe} from '@nestjs/common';
 import {plainToClass} from 'class-transformer';
 import {PaginateResult} from 'mongoose';
 import {PharmacyService} from '../service';
