@@ -2,7 +2,7 @@ import {Body, Controller, Get, HttpCode, Param, Post, Query, ValidationPipe} fro
 import {plainToClass} from 'class-transformer';
 import {PaginateResult} from 'mongoose';
 import {PharmacyService} from '../service';
-import {PharmacyVO, ProductVO, SearchVO} from '../vo';
+import {CreatePharmacyVO, PharmacyVO, ProductVO, SearchVO} from '../vo';
 import {PharmacyDTO, ProductDTO, SearchDTO} from '../dto';
 import {ApiImplicitQuery, ApiOperation, ApiResponse, ApiUseTags} from '@nestjs/swagger';
 import {PaginatedPharmacyVO} from '../swagger/paginate-result.swagger';
@@ -19,9 +19,9 @@ export class PharmacyController {
   @ApiOperation({title: 'New Pharmacy', description: 'Add new pharmacy'})
   @ApiResponse({status: 201, description: 'Pharmacy has been successfully created'})
   @HttpCode(201)
-  async createPharmacy(@Body() pharmacy: PharmacyVO): Promise<PharmacyVO> {
+  async createPharmacy(@Body() pharmacy: CreatePharmacyVO): Promise<PharmacyVO> {
     const savedPharmacy: PharmacyDTO = await this.service.create(
-      plainToClass<PharmacyDTO, PharmacyVO>(PharmacyDTO, pharmacy),
+      plainToClass<PharmacyDTO, CreatePharmacyVO>(PharmacyDTO, pharmacy),
     );
     return plainToClass<PharmacyVO, PharmacyDTO>(PharmacyVO, savedPharmacy);
   }

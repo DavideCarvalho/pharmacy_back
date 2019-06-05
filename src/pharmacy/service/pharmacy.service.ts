@@ -18,6 +18,16 @@ export class PharmacyService {
   }
 
   async create(pharmacy: PharmacyDTO): Promise<PharmacyDTO> {
+    const googleApiResult: AxiosResponse<GoogleMapsResponseModel> = await this.googleMapsService.getGeocoding(pharmacy.address);
+    const googleMapResponse: GoogleMapsResponseModel = plainToClass(GoogleMapsResponseModel, googleApiResult.data);
+    const coordinates = [
+      googleMapResponse.results[0].geometry.location.lat,
+      googleMapResponse.results[0].geometry.location.lng,
+    ];
+    pharmacy = {...pharmacy, location: {
+        ...pharmacy.location, coordinates,
+      },
+    };
     const savedPharmacy: IPharmacy = await this.repository.save(pharmacy);
     return plainToClass<PharmacyDTO, IPharmacy>(PharmacyDTO, savedPharmacy.toJSON({virtuals: true}), {excludePrefixes: ['_']});
   }

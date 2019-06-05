@@ -14,6 +14,7 @@ export const Pharmacy = new mongoose.Schema({
     required: true,
   },
   location: Location,
+  address: String,
   products: [Product],
 });
 

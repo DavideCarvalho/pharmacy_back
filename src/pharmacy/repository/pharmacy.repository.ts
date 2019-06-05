@@ -26,7 +26,7 @@ export class PharmacyRepository {
 
   async findByGeolocation(product: string, coordinates: number[], limit: number, offset: number): Promise<PaginateResult<IPharmacy>> {
     const query: any = {
-      location: {
+      'location': {
         $nearSphere: {
           $geometry: {
             type: 'Point',

@@ -8,6 +8,7 @@ export class PharmacyDTO {
   name: string;
   @Type(() => LocationDTO)
   location: LocationDTO;
+  address: string;
   @Type(() => ProductDTO)
   products: ProductDTO[];
   deleted: boolean = false;
